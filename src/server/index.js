@@ -53,6 +53,8 @@ const app = express();
 // Heroku requires you to use process.env.PORT
 const port = process.env.DEV_APP_PORT || process.env.PORT;
 
+app.set("port", port);
+
 // Don't rate limit heroku
 app.enable("trust proxy");
 
