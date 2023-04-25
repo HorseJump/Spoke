@@ -2,7 +2,6 @@ import renderIndex from "./render-index";
 import wrap from "../wrap";
 import fs from "fs";
 import path from "path";
-import {ASSETS_DIR, ASSETS_MAP_FILE} from "dotenv"
 
 const DEBUG =
   process.env.NODE_ENV === "development" || !!process.env.WEBPACK_HOT_RELOAD;
@@ -11,9 +10,13 @@ let assetMap = {
   "bundle.js": "/assets/bundle.js"
 };
 
-console.log(`ASSETS_DIR:${ASSETS_DIR}`);
-console.log(`ASSETS_MAP_FILE:${ASSETS_MAP_FILE}`);
+console.log(`ASSETS_DIR:${process.env.ASSETS_DIR}`);
+console.log(`ASSETS_MAP_FILE:${process.env.ASSETS_MAP_FILE}`);
 console.log(`__dirname:${__dirname}`);
+
+process.env.ASSETS_DIR = "./build/client/assets";
+process.env.ASSETS_MAP_FILE = "assets.json";
+
 
 if (!DEBUG) {
   const assetMapData = JSON.parse(
@@ -22,14 +25,14 @@ if (!DEBUG) {
       // of it being run from the build directory BY claudia.js
       // we need to make it REALLY relative, but not by the
       // starting process or the 'local' directory (which are both wrong then)
-      (ASSETS_DIR || "").startsWith(".")
+      (process.env.ASSETS_DIR || "").startsWith(".")
         ? path.join(
             __dirname,
             "../../../../",
-            ASSETS_DIR,
-            ASSETS_MAP_FILE
+            process.env.ASSETS_DIR,
+            process.env.ASSETS_MAP_FILE
           )
-        : path.join(ASSETS_DIR, ASSETS_MAP_FILE)
+        : path.join(process.env.ASSETS_DIR, process.env.ASSETS_MAP_FILE)
     )
   );
   const staticBase = process.env.STATIC_BASE_URL || "/assets/";
