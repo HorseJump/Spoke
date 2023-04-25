@@ -169,7 +169,7 @@
     "KNEX_MIGRATION_DIR": {
       "description": "sets path for migration directory - do not change",
       "required": true,
-      "value": "/spoke/build/server/migrations/"
+      "value": "/app/build/server/migrations/"
     },
 
     "DB_USE_SSL": {
