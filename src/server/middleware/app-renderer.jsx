@@ -2,6 +2,7 @@ import renderIndex from "./render-index";
 import wrap from "../wrap";
 import fs from "fs";
 import path from "path";
+import {ASSETS_DIR, ASSETS_MAP_FILE} from "dotenv"
 
 const DEBUG =
   process.env.NODE_ENV === "development" || !!process.env.WEBPACK_HOT_RELOAD;
@@ -17,14 +18,14 @@ if (!DEBUG) {
       // of it being run from the build directory BY claudia.js
       // we need to make it REALLY relative, but not by the
       // starting process or the 'local' directory (which are both wrong then)
-      (process.env.ASSETS_DIR || "").startsWith(".")
+      (ASSETS_DIR || "").startsWith(".")
         ? path.join(
             __dirname,
             "../../../../",
-            process.env.ASSETS_DIR,
-            process.env.ASSETS_MAP_FILE
+            ASSETS_DIR,
+            ASSETS_MAP_FILE
           )
-        : path.join(process.env.ASSETS_DIR, process.env.ASSETS_MAP_FILE)
+        : path.join(ASSETS_DIR, ASSETS_MAP_FILE)
     )
   );
   const staticBase = process.env.STATIC_BASE_URL || "/assets/";
