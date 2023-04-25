@@ -11,6 +11,10 @@ let assetMap = {
   "bundle.js": "/assets/bundle.js"
 };
 
+console.log(`ASSETS_DIR:${ASSETS_DIR}`);
+console.log(`ASSETS_MAP_FILE:${ASSETS_MAP_FILE}`);
+console.log(`__dirname:${__dirname}`);
+
 if (!DEBUG) {
   const assetMapData = JSON.parse(
     fs.readFileSync(
